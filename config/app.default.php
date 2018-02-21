@@ -9,7 +9,7 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
 
     /**
      * Configure basic information about the application.
@@ -64,7 +64,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => env('SECURITY_SALT', '70cda02a629dfcaf9a6d2d9e6edcc892d640637983d56e6d7a8f92bc6914d335'),
+        'salt' => env('SECURITY_SALT', '__SALT__'),
     ],
 
     /**
@@ -229,9 +229,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'root',
-            'password' => '',
-            'database' => 'controle',
+            'username' => 'my_app',
+            'password' => 'secret',
+            'database' => 'my_app',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -285,9 +285,6 @@ return [
     /**
      * Configures logging options
      */
-
-
-
     'Log' => [
         'debug' => [
             'className' => 'Cake\Log\Engine\FileLog',
@@ -297,39 +294,23 @@ return [
             'scopes' => false,
             'levels' => ['notice', 'info', 'debug'],
         ],
-        
-        'debug_kit' => [
-            'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Mysql',
-            'persistent' => false,
-            'host' => 'localhost',
-            //'port' => 'nonstandard_port_number',
-            'username' => 'dbusername',    // Your DB username here
-            'password' => 'dbpassword',    // Your DB password here
-            'database' => 'debug_kit',
-            'encoding' => 'utf8',
-            'timezone' => 'UTC',
-            'cacheMetadata' => true,
-            'quoteIdentifiers' => false,
-           'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
-],
-'error' => [
-    'className' => 'Cake\Log\Engine\FileLog',
-    'path' => LOGS,
-    'file' => 'error',
-    'url' => env('LOG_ERROR_URL', null),
-    'scopes' => false,
-    'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
-],
+        'error' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS,
+            'file' => 'error',
+            'url' => env('LOG_ERROR_URL', null),
+            'scopes' => false,
+            'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
+        ],
         // To enable this dedicated query log, you need set your datasource's log flag to true
-'queries' => [
-    'className' => 'Cake\Log\Engine\FileLog',
-    'path' => LOGS,
-    'file' => 'queries',
-    'url' => env('LOG_QUERIES_URL', null),
-    'scopes' => ['queriesLog'],
-],
-],
+        'queries' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS,
+            'file' => 'queries',
+            'url' => env('LOG_QUERIES_URL', null),
+            'scopes' => ['queriesLog'],
+        ],
+    ],
 
     /**
      * Session configuration.
